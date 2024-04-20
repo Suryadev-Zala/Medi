@@ -47,7 +47,7 @@ import datetime
 
 
 def home(request):
-    return render(request,'new_home.html')
+    return render(request,'index.html')
     
 
 def record(request):    
@@ -159,10 +159,10 @@ def predict(request):
             record.save() 
             # x=''
             # info=''
-            return render(request, "index.html",{'image':image,'output_pred':x,'info':info})
+            return render(request, "new_MRI.html",{'image':image,'output_pred':x,'info':info})
     else:
         form=ImageForm()
-        return render(request,'index.html',{'form':form})
+        return render(request,'new_MRI.html',{'form':form})
 
 
 def diabetes(request):
