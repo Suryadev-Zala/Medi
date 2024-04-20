@@ -1,0 +1,149 @@
+{% load static %}
+{% include 'new_base.html' %}
+<link rel="stylesheet" href="{% static 'css/style_login.css' %}" />
+<style>
+  .hero_bg_box {
+    background-color: #fefefe;
+  }
+  .response {
+    position: absolute;
+    left: 45rem;
+    top: 20rem;
+  }
+  .check {
+    position: absolute;
+    left: 60rem;
+    top: 32rem;
+    width: 25rem;
+  }
+</style>
+
+<div class="hero_area">
+  <div class="hero_bg_box">
+    {% comment %} <img src="{% static 'images/hero-bg.png' %}" alt="" /> {% endcomment %}
+  </div>
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <a class="navbar-brand" href="{% url 'home' %}"><span>Medi Scan</span></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class=""></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'new_department' %}">Departments</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'new_contact' %}">Contact Us <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_register' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_login' %}">Login</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- end header section -->
+  {% comment %} <section class="slider_section">
+    <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-15">
+                <div class="detail-box">
+                  {% comment %} {% if form.errors %}
+                    <p>Form has errors</p>
+                  {% endif %} {% endcomment %}
+
+                  {% comment %} <form action="{% url 'predict' %}" method="POST" enctype="multipart/form-data">
+                    {% endcomment %}
+
+                    {% comment %} {% if image %}
+                      {{ name }} {% endcomment %}
+                      {% comment %} <img src="media/media/{{ image }}" id="img" alt="image" /> {% endcomment %}
+
+                      {% comment %}
+                    {% endif %} {% endcomment %}
+                    {% comment %} <div class="form-group my-3 text-white mx-7 col-md-6 offset-md-3">
+                      {% comment %} <img src="{% static 'images/s2.png' %}" alt="" srcset="" /> {% endcomment %}
+                      {% comment %} <p>Upload Image</p>
+                      <div>{{ form }}</div>
+                      <div class="bd-highlight">
+                        {% endcomment %}
+                        {% comment %} <button type="button" class="btn btn-dark">Check</button> {% endcomment %}
+                        {% comment %} <button type="submit" class="btn btn-primary my-3">Check</button>
+                      </div>
+                    </div>
+
+                    {% if output_pred %}
+                      <h2 class="text-white">{{ output_pred }} Tumor</h2>
+                    {% endif %}
+                    {% csrf_token %}
+
+                    <div>
+                      {% if x %}
+                        {{ x }}
+                      {% endif %}
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> {% endcomment %}
+
+  <img class="wave" src="{% static 'images/wave.png' %}" />
+  <div class="container2">
+    <div class="img">
+      <img src="{% static 'images/bg.svg' %}" />
+    </div>
+    <div class="detail-box login-content">
+      <div class="login-content">
+        <div>
+          {% if output_pred %}
+            <div class="response">
+              <h2>{{ output_pred }} Tumor</h2>
+              {% if info %}
+                <p>{{ info }}</p>
+              {% endif %}
+            </div>
+            <form action="{% url 'predict' %}">
+              <button type="submit" class="btn btn-primary my-3 check">Check Again</button>
+            </form>
+          {% else %}
+            <form action="{% url 'predict' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h2>MRI Scan Predicter</h2>
+              {{ form }}
+              <button type="submit" class="btn btn-primary my-3">Submit</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

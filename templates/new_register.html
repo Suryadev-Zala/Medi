@@ -1,0 +1,93 @@
+{% block content %}
+  {% include 'new_base.html' %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style_login.css' %}" />
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="{% url 'home' %}"><span>Medi Scan</span></a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class=""></span></button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_department' %}">Departments</a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'new_contact' %}">Contact Us <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'new_logout' %}">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'new_register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'new_login' %}">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    {% if user.is_authenticated %}
+      <div class="col-md-6 offset-md-3 my-5">
+        <h1>Please Login Again</h1>
+      </div>
+    {% else %}
+      {% if form.errors %}
+        <div class="alert alert-danger text-center" role="alert">
+          Your Form has errors{% for field in form %}
+            {% if field.errors %}
+              {{ field.errors }}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      <img class="wave" src="{% static 'images/wave.png' %}" />
+      <div class="container2">
+        <div class="img">
+          <img src="{% static 'images/bg.svg' %}" />
+        </div>
+        <div class="login-content">
+          <form method="POST" action="{% url 'new_register' %}">
+            <img src="{% static 'images/avatar.svg' %}" />
+            <br />
+            <br />
+            <div>
+              <h3>
+                {% if messages %}
+                  {% for message in messages %}
+                    {{ message }}
+                  {% endfor %}
+                {% endif %}
+              </h3>
+            </div>
+            <br />
+            <h1 class="title">Register</h1>
+            <br />
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary my-3">Submit</button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

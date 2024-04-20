@@ -1,0 +1,72 @@
+{% load static %}
+
+<style>
+  .hero_bg_box {
+    background: #1fab89;
+  }
+</style>
+<div class="hero_area">
+  <div class="hero_bg_box">
+    {% comment %} <img src="{% static 'images/hero-bg.png' %}" alt="" /> {% endcomment %}
+  </div>
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <a class="navbar-brand" href="home"><span>Medi Scan</span></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class=""></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'new_department' %}">Departments</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'new_contact' %}">Contact Us <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_register' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_login' %}">Login</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- end header section -->
+  <section class="slider_section">
+    <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="detail-box">
+                  <h1>We Provide Best Healthcare</h1>
+                  <p>Welcome to Medi Scan, your comprehensive healthcare solution powered by advanced technology. With Medi Scan, you can take control of your health like never before. Our platform empowers users to upload their medical scans, such as MRI and CT scans, and receive accurate disease predictions and relevant remedies, all at no extra cost.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

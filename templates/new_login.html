@@ -1,0 +1,85 @@
+{% block content %}
+  {% include 'new_base.html' %}
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style_login.css' %}" />
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="home"><span>Medi Scan</span></a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class=""></span></button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="home">Home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="new_department">Departments</a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="new_contact">Contact Us <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="new_logout">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="new_register">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="new_login">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    <img class="wave" src="{% static 'images/wave.png' %}" />
+    <div class="container2">
+      <div class="img">
+        <img src="{% static 'images/bg.svg' %}" />
+      </div>
+      <div class="detail-box login-content">
+        {% if user.is_authenticated %}
+          <div class="col-md-15 offset-md-3 my-5 mx-2">
+            <h1>Please Login Again to Access Data</h1>
+            <br />
+            <h1></h1>
+          </div>
+        {% else %}
+          <div class="login-content">
+            <form method="POST" action="{% url 'new_login' %}">
+              <img src="{% static 'images/avatar.svg' %}" />
+              <h3>
+                <br />
+                {% if messages %}
+                  {% for message in messages %}
+                    {{ message }}
+                  {% endfor %}
+                {% endif %}
+              </h3>
+              <h1 class="title">Login</h1>
+              <br />
+              {% csrf_token %}
+              {{ form }}
+              <button type="submit" class="btn btn-primary my-3">Submit</button>
+            </form>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

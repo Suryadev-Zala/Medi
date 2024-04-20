@@ -1,0 +1,137 @@
+{% include 'new_base.html' %}
+{% comment %} <div class="hero_area">
+  {% endcomment %}
+  {% comment %} <div class="hero_bg_box">
+    {% comment %} <img src="{% static 'images/hero-bg.png' %}" alt="" /> {% endcomment %}
+    {% comment %}
+  </div> {% endcomment %}
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <a class="navbar-brand" href="{% url 'home' %}"><span>Medi Scan</span></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class=""></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'new_department' %}">Departments</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'new_contact' %}">Contact Us <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_register' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_login' %}">Login</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- end header section -->
+
+  {% comment %}
+</div> {% endcomment %}
+
+<section class="department_section layout_padding">
+  <div class="department_container">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>Our Departments</h2>
+        <p>They are more difficult to pursue, prevents the choice of any discomfort, repulses the pains and sufferings that accuse</p>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="./static/images/s1.png" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>MRI Scan</h5>
+              <p>A magnetic resonance imaging (MRI) scan is a painless test that uses radio waves and strong magnetic fields to produce clear images of the inside of the body. MRIs can create detailed images of nearly every structure and organ inside the body.</p>
+            </div>
+          </div>
+          <div class="btn-box">
+            {% if user.is_authenticated %}
+              <a href="{% url 'predict' %}">Check</a>
+            {% else %}
+              <a href="{% url 'new_login' %}">Check</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="./static/images/s2.png" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>X-ray</h5>
+              <p>X-rays are a form of electromagnetic radiation, similar to visible light. Unlike light, however, x-rays have higher energy and can pass through most objects, including the body. Medical x-rays are used to generate images of tissues and structures inside the body.</p>
+            </div>
+          </div>
+          <div class="btn-box">
+            {% if user.is_authenticated %}
+              <a href="{% url 'xray' %}">Check</a>
+            {% else %}
+              <a href="{% url 'new_login' %}">Check</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="./static/images/s3.png" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>CT Scan</h5>
+              <p>A computed tomography (CT) scan is a diagnostic imaging procedure that uses X-rays and computer technology to create images of the body. CT scans can be used to identify injuries or diseases in various parts of the body.</p>
+            </div>
+          </div>
+          <div class="btn-box">
+            {% if user.is_authenticated %}
+              <a href="{% url 'chest_ct2' %}">Check</a>
+            {% else %}
+              <a href="{% url 'new_login' %}">Check</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="box">
+            <div class="img-box">
+              <img src="./static/images/s4.png" alt="" />
+            </div>
+            <div class="detail-box">
+              <h5>Diabetes</h5>
+              <p>Diabetes is a chronic disease that occurs either when the pancreas does not produce enough insulin or when the body cannot effectively use the insulin it produces. Insulin is a hormone that regulates blood glucose.</p>
+            </div>
+          </div>
+          <div class="btn-box">
+            {% if user.is_authenticated %}
+              <a href="{% url 'diabetes' %}">Check</a>
+            {% else %}
+              <a href="{% url 'new_login' %}">Check</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

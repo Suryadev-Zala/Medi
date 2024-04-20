@@ -1,0 +1,172 @@
+{% block content %}
+  {% include 'new_base.html' %}
+  {% comment %} {% include 'new_navbar.html' %} {% endcomment %}
+
+  {% load static %}
+
+  <link rel="stylesheet" href="{% static 'css/style_login.css' %}" />
+  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" /> {% endcomment %}
+  <style>
+    .login-content img {
+      height: 40px;
+      margin-left: 5px;
+    }
+    .input-name {
+      position: absolute;
+      right: 25rem;
+    }
+    .icon img {
+      max-height: 50%;
+    }
+    .response {
+      overflow: hidden;
+      width: 90rem;
+      padding: 2rem;
+      margin: 2rem;
+    }
+    .text-main {
+      width: 70%;
+      position: absolute;
+      top: 40rem;
+      left: 16rem;
+    }
+    .border-box {
+      border: 7px solid #38d39f;
+      padding: 15%;
+      border-radius: 10%;
+    }
+    #input {
+      width: 100%;
+      padding-right: 1rem;
+      padding-left: 1rem;
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+    }
+    .text {
+      height: 0;
+    }
+    .icon {
+      position: relative;
+      left: 33rem;
+      bottom: 2.4rem;
+      border: none;
+      background: transparent;
+    }
+    .without_login {
+      position: relative;
+      top: 18rem;
+      left: 8rem;
+    }
+  </style>
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="home"><span>Medi Scan</span></a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class=""></span></button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new_department' %}">Departments</a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'new_contact' %}">Contact Us <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'new_logout' %}">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'new_register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'new_login' %}">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    {% comment %} <img class="wave" src="{% static 'images/wave.png' %}" />
+    <div class="container2">
+      {% endcomment %}
+      {% comment %} <div class="img">
+        <img src="{% static 'images/bg.svg' %}" />
+      </div> {% endcomment %}
+      <div class="detail-box login-content">
+        {% if user.is_authenticated %}
+          {% comment %} <div class="login-content">
+            <div class="border-box">
+              {% endcomment %}
+              <form method="POST" action="{% url 'chatbot' %}" enctype="multipart/form-data">
+                {% comment %} <img src="{% static 'images/avatar.svg' %}" /> {% endcomment %}
+                {% comment %} <h1 class="title">Chat</h1> {% endcomment %}
+
+                {% csrf_token %}
+                <div class="response">
+                  <div class="input-name">
+                    <div class="login-content">
+                      {% if input %}
+                        {{ input }}
+                        <img src="{% static 'images/avatar.svg' %}" class="user-image" />
+                      {% endif %}
+                    </div>
+                  </div>
+                  <br />
+                  <br />
+                  <div>
+                    <div class="bot">
+                      <b>Bot:</b>
+                    </div>
+
+                    <br />{% if response %}
+                      {{ response }}
+                    {% else %}
+                      <p>Hello! How can i help you ?</p>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="text-main">
+                  <div class="text">
+                    <input type="text" name="input" id="input" placeholder="Enter the Message..." />
+
+                    <button type="submit" href="{% url 'chatbot' %}" class="icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                {% comment %} <button type="submit" class="btn btn-primary my-3 send">Send</button> {% endcomment %}
+                {% comment %} <input type="file" name="image" id="image" /> {% endcomment %}
+                {% comment %} <button type="submit" class="btn btn-primary my-3">Submit</button> {% endcomment %}
+              </form>
+              {% comment %}
+            </div>
+          </div> {% endcomment %}
+        {% else %}
+          <div class="col-md-15 offset-md-3 without_login">
+            <h1>Please Login Again to Access Data</h1>
+            {% comment %}window.location.replace({'url new_login.html'});s{% endcomment %}
+          </div>
+        {% endif %}
+        {% comment %}
+      </div>
+    </div> {% endcomment %}
+  </div>
+{% endblock %}
